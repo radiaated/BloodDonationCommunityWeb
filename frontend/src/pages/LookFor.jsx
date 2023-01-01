@@ -17,61 +17,69 @@ const LookFor = () => {
   }, []);
 
   return (
-    <main>
-      <h2>Look For Blood</h2>
+    <main className="container look-for left-border-box">
+      <div className="main-box">
+        <h2>Look For Blood</h2>
+        <div className="filter-blood-type">
+          <label>Filter: </label>
+          <select
+            value={bloodType}
+            onChange={(e) => {
+              setBloodType(e.target.value);
+              dispatch(fetchDonors(e.target.value));
+            }}
+          >
+            <option value="all">All</option>
+            <option value="a+">A+</option>
+            <option value="a-">A-</option>
+            <option value="b+">B+</option>
+            <option value="b-">B-</option>
+            <option value="o+">O+</option>
+            <option value="o-">o-</option>
+            <option value="ab+">AB+</option>
+            <option value="ab-">ab-</option>
+          </select>
+        </div>
 
-      <select
-        value={bloodType}
-        onChange={(e) => {
-          setBloodType(e.target.value);
-          dispatch(fetchDonors(e.target.value));
-        }}
-      >
-        <option value="all">All</option>
-        <option value="a+">A+</option>
-        <option value="a-">A-</option>
-        <option value="b+">B+</option>
-        <option value="b-">B-</option>
-        <option value="o+">O+</option>
-        <option value="o-">o-</option>
-        <option value="ab+">AB+</option>
-        <option value="ab-">ab-</option>
-      </select>
-
-      {!donorsLoading ? (
-        <table>
-          <thead>
-            <tr>
-              <th>S.N.</th>
-              <th>Full Name</th>
-              <th>Age</th>
-              <th>Blood Group</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {donors.map((item, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{item.first_name}</td>
-                <td>{item.dob}</td>
-                <td>{item.blood_group}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      navigate(`/user/${item.id}`);
-                    }}
-                  >
-                    See
-                  </button>
-                </td>
+        {!donorsLoading ? (
+          <table>
+            <thead>
+              <tr>
+                <th>S.N.</th>
+                <th>Full Name</th>
+                <th>Age</th>
+                <th>Blood Group</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        "Loading"
-      )}
+            </thead>
+            <tbody>
+              {donors.length > 0 ? (
+                donors.map((item, i) => (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{item.first_name}</td>
+                    <td>{item.dob}</td>
+                    <td>{item.blood_group}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          navigate(`/user/${item.id}`);
+                        }}
+                      >
+                        See
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>Empty</tr>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          "Loading"
+        )}
+      </div>
     </main>
   );
 };

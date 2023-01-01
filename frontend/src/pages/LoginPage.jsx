@@ -27,9 +27,14 @@ const LoginPage = () => {
   });
 
   return (
-    <main>
-      <h2>Login</h2>
-      <form action="" onSubmit={handleSubmit}>
+    <main className="container">
+      <form
+        action=""
+        onSubmit={handleSubmit}
+        className="sl-form flex box-shadow"
+      >
+        <h2>Login</h2>
+        <hr />
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -46,7 +51,7 @@ const LoginPage = () => {
           onChange={handleChange}
         />
 
-        <input type="submit" value="Signup" />
+        <input type="submit" value="Login" />
       </form>
     </main>
   );

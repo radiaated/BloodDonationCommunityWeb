@@ -10,6 +10,8 @@ const ViewUser = () => {
   const dispatch = useDispatch();
   const viewUserState = useSelector((state) => state.viewUser);
   const { viewUser, viewUserLoading, viewUserMessage } = viewUserState;
+  const requestState = useSelector((state) => state.request);
+  const { request, requestLoading, requestMessage } = requestState;
   const params = useParams();
   const AuthCxt = useContext(AuthContext);
   const navigate = useNavigate();
@@ -20,9 +22,9 @@ const ViewUser = () => {
   }, []);
 
   return (
-    <div>
+    <main className="container look-for left-border-box">
       {viewUser ? (
-        <div>
+        <div className="main-box">
           <h2>Donor Details</h2>
           <table>
             <tbody>
@@ -50,10 +52,13 @@ const ViewUser = () => {
           </table>
           <button
             onClick={() => {
+              console.log(viewUser.id);
               if (AuthCxt.auth) {
                 dispatch(
                   requestBlood({ id: viewUser.id, token: AuthCxt.auth.access })
-                );
+                ).then((res) => {
+                  navigate("/request/" + request.id);
+                });
               } else {
                 navigate("/signup");
               }
@@ -65,7 +70,7 @@ const ViewUser = () => {
       ) : (
         "loading"
       )}
-    </div>
+    </main>
   );
 };
 

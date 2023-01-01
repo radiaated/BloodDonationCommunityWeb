@@ -115,9 +115,10 @@ const SignupPage = () => {
   });
 
   return (
-    <main>
-      <h2>Signup</h2>
-      <form action="" onSubmit={handleSubmit}>
+    <main className="container left-border-box box-shadow">
+      <form action="" onSubmit={handleSubmit} className="sl-form flex">
+        <h2>Signup</h2>
+        <hr />
         <label htmlFor="email">Email:</label>
         <input
           type="email"

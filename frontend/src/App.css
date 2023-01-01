@@ -1,0 +1,249 @@
+:root {
+  --black2: rgb(53, 53, 53);
+  --white2: #ececec;
+  --red2: #eb5757;
+  --red3: #761414;
+  --red4: #4e0b0b;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  /* background-color: rgb(247, 207, 207); */
+  height: 100vh;
+  background-image: linear-gradient(
+    135deg,
+    rgb(241, 241, 241) 30%,
+    rgb(247, 207, 207)
+  );
+}
+
+h2 {
+  font-size: 2.25rem;
+  color: var(--red2);
+}
+
+.container {
+  width: 1000px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.box-shadow {
+  box-shadow: 0px 5px 5px rgb(212, 212, 212);
+}
+
+.btn {
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+.btn-fill {
+  border: 2px solid var(--red2);
+  color: var(--white2);
+  background-color: var(--red2);
+  transition: all 0.1s;
+}
+
+.btn-fill:hover {
+  background-color: #c24343;
+  border-color: #c24343;
+}
+
+.btn-out {
+  border: 2px solid var(--red2);
+  color: var(--red2);
+  transition: all 0.2s;
+}
+.btn-out:hover {
+  border-color: #c24343;
+  background-color: #c24343;
+  color: white;
+}
+
+main {
+  margin: 2em;
+}
+
+header {
+  background: linear-gradient(
+    to right,
+    var(--red2) 0%,
+    var(--red2) 30%,
+    white 30%,
+    white 100%
+  );
+}
+
+.header-main {
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
+}
+
+header ul {
+  list-style: none;
+  gap: 2em;
+}
+
+header ul a {
+  color: var(--red3);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+header .btn {
+  margin-left: 1em;
+  font-size: 0.9rem;
+}
+
+footer {
+  margin: 0 auto;
+  width: 1000px;
+  max-width: 90%;
+  margin-top: 2em;
+  text-align: center;
+}
+
+.left-border-box {
+  border-left: 20px solid var(--red2);
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Signup Page */
+
+.sl-form {
+  background-color: #ffffff;
+
+  padding: 2em 4em;
+  flex-direction: column;
+  width: 55%;
+  margin: 1.5em auto;
+  font-size: 25px;
+  border-radius: 10px;
+}
+
+.sl-form label {
+  margin-top: 0.75em;
+  margin-bottom: 0.4em;
+  color: var(--black2);
+}
+
+.sl-form input,
+select {
+  font-size: 1.5rem;
+  padding: 0.25em;
+  border-radius: 5px;
+  border-width: 1px;
+  background-color: rgb(245, 245, 245);
+  border: 1px solid rgb(173, 173, 173);
+}
+
+.sl-form input[type="submit"] {
+  margin-top: 1em;
+  cursor: pointer;
+  background-color: var(--red2);
+  border: 0;
+  color: var(--white2);
+  font-size: 1.5rem;
+  padding: 0.5em 0;
+}
+
+.sl-form hr {
+  margin-top: 0.5em;
+}
+
+/* Lookfor Page */
+.look-for {
+  margin-top: 2em;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.main-box {
+  width: 75%;
+  margin: 0 auto;
+  padding: 1.5em 0;
+}
+
+.main-box table {
+  width: 100%;
+  text-align: left;
+}
+
+.filter-blood-type,
+.filter-blood-type select {
+  font-size: 1rem;
+}
+
+.filter-blood-type {
+  margin: 1em 0;
+}
+
+.main-box table thead {
+  background-color: var(--red2);
+  color: white;
+  font-size: 1.2rem;
+}
+
+.main-box table tbody tr:nth-child(even) {
+  background-color: rgb(241, 241, 241);
+}
+
+.main-box table tbody td {
+  font-size: 1.1rem;
+}
+
+.main-box table th {
+  padding: 0.5em;
+}
+.main-box table td {
+  padding: 0.5em;
+}
+
+.main-box table caption {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: left;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.main-box hr {
+  margin-top: 1em;
+}
+
+.main-box button {
+  background-color: var(--red2);
+  color: white;
+  cursor: pointer;
+  border: 0;
+  font-size: 1rem;
+  padding: 0.5em 0.75em;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.main-box button:disabled {
+  background-color: var(--red3);
+  color: gray;
+  cursor: no-drop;
+}
+
+.req-details-btn {
+  margin: 2em 0;
+  justify-content: space-between;
+}
+
+.user-req-page {
+  width: 85%;
+}

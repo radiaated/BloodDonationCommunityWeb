@@ -18,78 +18,95 @@ const RequestDetail = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Request Details</h2>
-      {requestLoading ? (
-        "Loading"
-      ) : (
-        <>
-          <h3>
-            Blood Requested:
-            {request.blood_donor && request.blood_donor["blood_group"]}
-          </h3>
-          <table>
-            <caption>Blood Requested By:</caption>
-            <tbody>
-              <tr>
-                <th>Name: </th>
-                <td>{request.ba_full_name}</td>
-                <th>Phone: </th>
-                <td>{request.blood_asker && request.blood_asker["phone"]}</td>
-              </tr>
-            </tbody>
-          </table>
-          <table>
-            <caption> Blood Requested To:</caption>
-            <tbody>
-              <tr>
-                <th>Name: </th>
-                <td>{request.bd_full_name}</td>
-                <th>Phone: </th>
-                <td>{request.blood_donor && request.blood_donor["phone"]}</td>
-                <th>Address: </th>
-                <td>
-                  {request.blood_donor && request.blood_donor["district"]}
-                </td>
-                <th>Blood Group: </th>
-                <td>
-                  {request.blood_donor && request.blood_donor["blood_group"]}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button
-            disabled={request.donation_status && true}
-            onClick={() => {
-              dispatch(
-                updateRequestDetail({
-                  type: "donation_status",
-                  token: CxtData.auth.access,
-                  id: params.id,
-                })
-              );
-            }}
-          >
-            Donated
-          </button>
-          Cancel the request:
-          <button
-            disabled={request.cancel_status && true}
-            onClick={() => {
-              dispatch(
-                updateRequestDetail({
-                  type: "cancel_status",
-                  token: CxtData.auth.access,
-                  id: params.id,
-                })
-              );
-            }}
-          >
-            Cancel
-          </button>
-        </>
-      )}
-    </div>
+    <main className="container look-for left-border-box">
+      <div className="main-box">
+        <h2>Request Details</h2>
+        {requestLoading ? (
+          "Loading"
+        ) : (
+          <>
+            <h3>
+              Blood Requested:{" "}
+              {request.blood_donor && request.blood_donor["blood_group"]}
+            </h3>
+            <hr />
+            <table>
+              <caption>Blood Requested By:</caption>
+              <tbody>
+                <tr>
+                  <th>Name: </th>
+                  <td>{request.ba_full_name}</td>
+                </tr>
+                <tr>
+                  <th>Phone: </th>
+                  <td>{request.blood_asker && request.blood_asker["phone"]}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table>
+              <caption> Blood Requested To:</caption>
+              <tbody>
+                <tr>
+                  <th>Name: </th>
+                  <td>{request.bd_full_name}</td>
+                </tr>
+                <tr>
+                  <th>Phone: </th>
+                  <td>{request.blood_donor && request.blood_donor["phone"]}</td>
+                </tr>
+                <tr>
+                  <th>Address: </th>
+                  <td>
+                    {request.blood_donor && request.blood_donor["district"]}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Blood Group: </th>
+                  <td>
+                    {request.blood_donor && request.blood_donor["blood_group"]}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div className="req-details-btn flex">
+              <button
+                className={request.donation_status ? "btn-disabled" : ""}
+                disabled={request.donation_status && true}
+                onClick={() => {
+                  dispatch(
+                    updateRequestDetail({
+                      type: "donation_status",
+                      token: CxtData.auth.access,
+                      id: params.id,
+                    })
+                  );
+                }}
+              >
+                Wants to donate to donate
+              </button>
+              <span>
+                Cancel the request:{" "}
+                <button
+                  disabled={request.cancel_status && true}
+                  onClick={() => {
+                    dispatch(
+                      updateRequestDetail({
+                        type: "cancel_status",
+                        token: CxtData.auth.access,
+                        id: params.id,
+                      })
+                    );
+                  }}
+                >
+                  Cancel
+                </button>
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+    </main>
   );
 };
 
