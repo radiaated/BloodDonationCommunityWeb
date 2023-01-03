@@ -6,6 +6,7 @@ import {
 } from "../features/userProfileSlice";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { districts } from "../assets/districts";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -25,85 +26,6 @@ const UserPage = () => {
     password: "",
     password2: "",
   });
-  const districts = [
-    "Bhojpur",
-    "Dhankuta",
-    "Ilam",
-    "Jhapa",
-    "Khotang",
-    "Morang",
-    "Okhaldhunga",
-    "Panchthar",
-    "Sankhuwasabha",
-    "Solukhumbu",
-    "Sunsari",
-    "Taplejung",
-    "Terhathum",
-    "Udayapur",
-    "Bara",
-    "Dhanusa",
-    "Mahottari",
-    "Parsa",
-    "Rautahat",
-    "Saptari",
-    "Sarlahi",
-    "Siraha",
-    "Bhaktapur District",
-    "Chitwan",
-    "Dhading",
-    "Dolakha",
-    "Kathmandu",
-    "Kavrepalanchok",
-    "Lalitpur",
-    "Makawanpur",
-    "Nuwakot District",
-    "Ramechhap",
-    "Rasuwa",
-    "Sindhuli",
-    "Sindhupalchok",
-    "Baglung",
-    "Gorkha",
-    "Kaski",
-    "Lamjung",
-    "Manang",
-    "Mustang",
-    "Myagdi",
-    "Nawalparasi (Bardaghat Susta Purva)",
-    "Parbat",
-    "Syangja",
-    "Tanahu District",
-    "Arghakhanchi",
-    "Banke",
-    "Bardiya",
-    "Dang",
-    "Gulmi",
-    "Kapilvastu",
-    "Nawalparasi (Bardaghat Susta Paschim)",
-    "Palpa",
-    "Pyuthan",
-    "Rolpa",
-    "Purbi Rukum",
-    "Rupandehi",
-    "Dailekh District",
-    "Dolpa District",
-    "Humla District",
-    "Jajarkot District",
-    "Jumla District",
-    "Kalikot District",
-    "Mugu District",
-    "Rukum Paschim District",
-    "Salyan District",
-    "Surkhet District",
-    "Achham",
-    "Baitadi",
-    "Bajhang",
-    "Bajura",
-    "Dadeldhura",
-    "Darchula",
-    "Doti",
-    "Kailali",
-    "Kanchanpur",
-  ];
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -136,9 +58,9 @@ const UserPage = () => {
   }, [userLoading]);
 
   return (
-    <div>
-      Your Information
-      <form action="" onSubmit={handleSubmit}>
+    <main className="container left-border-box box-shadow">
+      <form action="" onSubmit={handleSubmit} className=" sl-form flex">
+        <h2>Your Information</h2>
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -211,9 +133,9 @@ const UserPage = () => {
           value={form.password2}
           onChange={handleChange}
         />
-        <input type="submit" value="Signup" />
+        <input type="submit" value="Update" />
       </form>
-    </div>
+    </main>
   );
 };
 

@@ -27,12 +27,8 @@ const LoginPage = () => {
   });
 
   return (
-    <main className="container">
-      <form
-        action=""
-        onSubmit={handleSubmit}
-        className="sl-form flex box-shadow"
-      >
+    <main className="container left-border-box box-shadow">
+      <form action="" onSubmit={handleSubmit} className="sl-form flex">
         <h2>Login</h2>
         <hr />
         <label htmlFor="email">Email:</label>

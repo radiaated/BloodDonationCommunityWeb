@@ -5,6 +5,7 @@ import { requestBlood } from "../features/requestSlice";
 import { useParams, useNavigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { districts } from "../assets/districts";
 
 const ViewUser = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const ViewUser = () => {
   }, []);
 
   return (
-    <main className="container look-for left-border-box">
+    <main className="container left-border-box box-shadow">
       {viewUser ? (
         <div className="main-box">
           <h2>Donor Details</h2>
@@ -42,7 +43,7 @@ const ViewUser = () => {
               </tr>
               <tr>
                 <th>Address: </th>
-                <td>{viewUser.district}</td>
+                <td>{districts[viewUser.district - 1]}</td>
               </tr>
               <tr>
                 <th>Phone: </th>
@@ -57,7 +58,8 @@ const ViewUser = () => {
                 dispatch(
                   requestBlood({ id: viewUser.id, token: AuthCxt.auth.access })
                 ).then((res) => {
-                  navigate("/request/" + request.id);
+                  console.log(res);
+                  navigate("/request/" + res.payload.id);
                 });
               } else {
                 navigate("/signup");

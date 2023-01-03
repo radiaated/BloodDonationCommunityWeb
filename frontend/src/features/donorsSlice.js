@@ -32,7 +32,14 @@ export const donorsSlice = createSlice({
     });
     builder.addCase(fetchDonors.fulfilled, (state, action) => {
       state.donorsLoading = false;
-      state.donors = action.payload;
+      if (localStorage.getItem("bdbUser")) {
+        state.donors = action.payload.filter(
+          (item) =>
+            item.id !== JSON.parse(localStorage.getItem("bdbUser")).userId
+        );
+      } else {
+        state.donors = action.payload;
+      }
       state.donorsMessage = "";
     });
     builder.addCase(fetchDonors.rejected, (state) => {

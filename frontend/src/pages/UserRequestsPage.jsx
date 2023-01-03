@@ -15,13 +15,13 @@ const UserRequestsPage = () => {
   }, []);
 
   return (
-    <main className="container left-border-box look-for ">
+    <main className="container left-border-box box-shadow">
       <div className="main-box user-req-page">
         {!requestLoading
           ? requests.map((item, i) => {
               console.log(item);
               return (
-                <div key={i}>
+                <div key={i} className="flex">
                   <h2>
                     {item.type === "req_for_you"
                       ? "Request For You"

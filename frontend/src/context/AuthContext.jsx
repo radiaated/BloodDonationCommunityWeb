@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
       })
       .then((res) => {
         login({ username: data.email, password: data.password });
-        suc = true;
+
         navigate("/");
       });
   };
@@ -40,16 +40,69 @@ export const AuthContextProvider = ({ children }) => {
       .then((res) => {
         console.log(res);
         setAuth(res.data);
-        localStorage.setItem("bdbCreds", JSON.stringify(res.data));
+        localStorage.setItem(
+          "bdbCreds",
+          JSON.stringify({ access: res.data.access, refresh: res.data.access })
+        );
+        localStorage.setItem(
+          "bdbUser",
+          JSON.stringify({ userId: res.data.id, fullName: res.data.name })
+        );
         navigate("/");
       });
+  };
+
+  const refresh = async () => {
+    console.log(auth);
+    await axios
+      .post(
+        "http://127.0.0.1:8000/api/token/refresh/",
+        { refresh: auth.refresh },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.access}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setAuth(res.data);
+        localStorage.setItem("bdbCreds", JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        logout();
+      });
+  };
+
+  const logout = () => {
+    if (localStorage.getItem("bdbCreds") && localStorage.getItem("bdbUser")) {
+      localStorage.removeItem("bdbCreds");
+      localStorage.removeItem("bdbUser");
+      window.location.reload();
+    }
   };
 
   const contextData = {
     auth,
     register,
     login,
+    logout,
   };
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (auth) {
+        refresh();
+      }
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+
+      // refresh();
+    };
+  }, [auth]);
 
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

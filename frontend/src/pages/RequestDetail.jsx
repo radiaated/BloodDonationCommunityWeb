@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { updateRequestDetail } from "../features/requestSlice";
+import { districts } from "../assets/districts";
 
 const RequestDetail = () => {
   const CxtData = useContext(AuthContext);
@@ -18,7 +19,7 @@ const RequestDetail = () => {
   }, []);
 
   return (
-    <main className="container look-for left-border-box">
+    <main className="container left-border-box">
       <div className="main-box">
         <h2>Request Details</h2>
         {requestLoading ? (
@@ -57,7 +58,8 @@ const RequestDetail = () => {
                 <tr>
                   <th>Address: </th>
                   <td>
-                    {request.blood_donor && request.blood_donor["district"]}
+                    {request.blood_donor &&
+                      districts[Number(request.blood_donor["district"]) - 1]}
                   </td>
                 </tr>
                 <tr>
@@ -70,38 +72,44 @@ const RequestDetail = () => {
             </table>
 
             <div className="req-details-btn flex">
-              <button
-                className={request.donation_status ? "btn-disabled" : ""}
-                disabled={request.donation_status && true}
-                onClick={() => {
-                  dispatch(
-                    updateRequestDetail({
-                      type: "donation_status",
-                      token: CxtData.auth.access,
-                      id: params.id,
-                    })
-                  );
-                }}
-              >
-                Wants to donate to donate
-              </button>
-              <span>
-                Cancel the request:{" "}
+              {JSON.parse(localStorage.getItem("bdbUser")).userId ===
+                request.bd_id && (
                 <button
-                  disabled={request.cancel_status && true}
+                  className={request.donation_status ? "btn-disabled" : ""}
+                  disabled={request.donation_status && true}
                   onClick={() => {
                     dispatch(
                       updateRequestDetail({
-                        type: "cancel_status",
+                        type: "donation_status",
                         token: CxtData.auth.access,
                         id: params.id,
                       })
                     );
                   }}
                 >
-                  Cancel
+                  Wants to donate
                 </button>
-              </span>
+              )}
+              {JSON.parse(localStorage.getItem("bdbUser")).userId ===
+                request.ba_id && (
+                <span>
+                  Cancel the request:{" "}
+                  <button
+                    disabled={request.cancel_status && true}
+                    onClick={() => {
+                      dispatch(
+                        updateRequestDetail({
+                          type: "cancel_status",
+                          token: CxtData.auth.access,
+                          id: params.id,
+                        })
+                      );
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </span>
+              )}
             </div>
           </>
         )}

@@ -1,3 +1,4 @@
+from cmath import log
 from django.shortcuts import render, HttpResponse
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -9,9 +10,36 @@ from django.contrib.auth.hashers import make_password
 
 
 from .models import UserX, BloodRequest
-from .serializers import UserXSerializer, BloodRequestSerializer
+from .serializers import UserXSerializer, BloodRequestSerializer, userSerializerWithToken
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+   
+    def validate(self, attrs):
+        
+        data = super().validate(attrs)
+    
+        serializers = userSerializerWithToken(self.user).data
+        
+        for k, v in serializers.items():
+            
+            data[k] = v
+        # userx = UserX.objects.get(user=data["id"])
+        
+        # data["userx_id"] = userx.id
+    
+        print('\n\ndata: ', data)
+        return data
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 @api_view(["GET"])
 def get_users(request):
@@ -189,5 +217,8 @@ def get_request_by_user(request):
         res.append({"type": "req_by_you","data": serializers.data})
     
     return Response(res)
+
+
+
 
    
