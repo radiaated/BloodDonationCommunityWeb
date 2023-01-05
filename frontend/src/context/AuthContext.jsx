@@ -12,6 +12,8 @@ export const AuthContextProvider = ({ children }) => {
       : null
   );
 
+  const [message, setMessage] = useState("");
+
   const register = async (data) => {
     await axios
       .post("http://127.0.0.1:8000/api/register/", data, {
@@ -23,6 +25,12 @@ export const AuthContextProvider = ({ children }) => {
         login({ username: data.email, password: data.password });
 
         navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(
+          "Unable to create an account. Please check your informations."
+        );
       });
   };
 
@@ -49,6 +57,10 @@ export const AuthContextProvider = ({ children }) => {
           JSON.stringify({ userId: res.data.id, fullName: res.data.name })
         );
         navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage(err.response.data.detail);
       });
   };
 
@@ -88,6 +100,8 @@ export const AuthContextProvider = ({ children }) => {
     register,
     login,
     logout,
+    message,
+    setMessage,
   };
 
   useEffect(() => {

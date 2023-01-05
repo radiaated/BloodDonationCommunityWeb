@@ -19,7 +19,7 @@ const RequestDetail = () => {
   }, []);
 
   return (
-    <main className="container left-border-box">
+    <main className="container left-border-box section">
       <div className="main-box">
         <h2>Request Details</h2>
         {requestLoading ? (
@@ -93,21 +93,27 @@ const RequestDetail = () => {
               {JSON.parse(localStorage.getItem("bdbUser")).userId ===
                 request.ba_id && (
                 <span>
-                  Cancel the request:{" "}
-                  <button
-                    disabled={request.cancel_status && true}
-                    onClick={() => {
-                      dispatch(
-                        updateRequestDetail({
-                          type: "cancel_status",
-                          token: CxtData.auth.access,
-                          id: params.id,
-                        })
-                      );
-                    }}
-                  >
-                    Cancel
-                  </button>
+                  {request.cancel_status === false ? (
+                    <>
+                      <span>Cancel the request: </span>
+                      <button
+                        disabled={request.cancel_status && true}
+                        onClick={() => {
+                          dispatch(
+                            updateRequestDetail({
+                              type: "cancel_status",
+                              token: CxtData.auth.access,
+                              id: params.id,
+                            })
+                          );
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    "Canceled"
+                  )}
                 </span>
               )}
             </div>

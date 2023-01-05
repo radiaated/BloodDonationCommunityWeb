@@ -23,9 +23,9 @@ const ViewUser = () => {
   }, []);
 
   return (
-    <main className="container left-border-box box-shadow">
+    <main className="container left-border-box box-shadow section">
       {viewUser ? (
-        <div className="main-box">
+        <div className="main-box flex user-view">
           <h2>Donor Details</h2>
           <table>
             <tbody>

@@ -127,6 +127,10 @@ def get_donors(request, type):
 @api_view(["POST"])
 def register(request):
     print(request.data)
+
+
+    
+
     user = User.objects.create(username=request.data["email"], email=request.data["email"], first_name=request.data["fullName"], password= make_password(request.data["password"]))
     if(user):
         user.save()
@@ -138,6 +142,7 @@ def register(request):
     serializers = UserXSerializer(userx)
 
     return Response(serializers.data)
+
 
 @permission_classes([IsAuthenticated])
 @api_view(["GET", "PUT"])

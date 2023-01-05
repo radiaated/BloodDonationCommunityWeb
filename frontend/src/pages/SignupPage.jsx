@@ -3,9 +3,11 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import { districts } from "../assets/districts";
+import { Link } from "react-router-dom";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const [fMessage, setFMessage] = useState("");
   const [form, setForm] = useState({
     email: "",
     fullName: "",
@@ -25,21 +27,54 @@ const SignupPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
-    authData.register(form);
+    authData.setMessage("");
+    setFMessage("");
+
+    console.log(new Date().getFullYear() - new Date(form.dob).getFullYear());
+    const email_regex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const phone_regex = /^[0-9]{10}$/;
+    if (!form.email.match(email_regex)) {
+      setFMessage("Enter appropriate email.");
+    } else if (
+      new Date().getFullYear() - new Date(form.dob).getFullYear() < 18 ||
+      new Date().getFullYear() - new Date(form.dob).getFullYear() > 60
+    ) {
+      setFMessage("Your age must be between 18 and 60.");
+    } else if (form.fullName === "") {
+      setFMessage("Enter your full name");
+    } else if (form.bloodGroup === "-1") {
+      setFMessage("Select your group");
+    } else if (form.district === "-1") {
+      setFMessage("Select your district");
+    } else if (!form.phone.match(phone_regex)) {
+      setFMessage("Enter your phone number");
+    } else if (form.password !== form.password2) {
+      setFMessage("Password do not match");
+    } else if (form.password === "" || form.password === "") {
+      setFMessage("Enter your password");
+    } else {
+      authData.register(form);
+    }
   };
 
   useEffect(() => {
     if (authData.auth) {
       navigate("/");
     }
-  });
+    return () => {
+      authData.setMessage("");
+      setFMessage("");
+    };
+  }, []);
 
   return (
-    <main className="container left-border-box box-shadow">
+    <main className="container left-border-box box-shadow section">
       <form action="" onSubmit={handleSubmit} className="sl-form flex">
         <h2>Signup</h2>
         <hr />
+        {authData.message && <div className="sl-msg">{authData.message}</div>}
+        {fMessage && <div className="sl-msg">{fMessage}</div>}
         <label htmlFor="email">Email:</label>
         <input
           type="email"
@@ -113,6 +148,9 @@ const SignupPage = () => {
           onChange={handleChange}
         />
         <input type="submit" value="Signup" />
+        <div>
+          Have account? <Link to="/login">Login</Link>
+        </div>
       </form>
     </main>
   );

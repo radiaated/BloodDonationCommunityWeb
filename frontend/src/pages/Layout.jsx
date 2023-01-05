@@ -10,6 +10,7 @@ const Layout = () => {
   const ref = useRef();
 
   const [showNavProfile, setShowNavProfile] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const navProfleClickHandler = (e) => {
     console.log(showNavProfile, ref.current);
@@ -34,7 +35,17 @@ const Layout = () => {
             <h1>Blood</h1>
           </div>
 
-          <nav>
+          <nav className="menu-icon">
+            <div
+              onClick={() => {
+                setShowMenu(!showMenu);
+              }}
+            >
+              <i class="fa-solid fa-bars"></i>
+            </div>
+          </nav>
+
+          <nav className="menu-1">
             <ul className="flex">
               <li>
                 <Link
@@ -47,19 +58,91 @@ const Layout = () => {
               <li>
                 <Link
                   className={
-                    location.pathname === "/lookfor" ||
-                    location.pathname === "/lookfor/"
+                    location.pathname === "/search" ||
+                    location.pathname === "/search/"
                       ? "nav-active"
                       : ""
                   }
-                  to="/lookfor"
+                  to="/search"
                 >
                   Search For Blood
                 </Link>
               </li>
+              <li>
+                <Link
+                  className={
+                    location.pathname === "/about" ||
+                    location.pathname === "/about/"
+                      ? "nav-active"
+                      : ""
+                  }
+                  to="/about"
+                >
+                  About
+                </Link>
+              </li>
             </ul>
           </nav>
-          <div>
+          {showMenu && (
+            <nav className="menu-1-ham">
+              <nav className="menu-icon">
+                <div
+                  onClick={() => {
+                    setShowMenu(!showMenu);
+                  }}
+                >
+                  <i class="fa-solid fa-bars"></i>
+                </div>
+              </nav>
+              <ul className="flex">
+                <Link to="/">
+                  <li>Home</li>
+                </Link>
+                <Link to="/search">
+                  <li>Search For Blood</li>
+                </Link>
+                <Link to="/about">
+                  <li>About</li>
+                </Link>
+
+                <hr />
+
+                {!authCxt.auth ? (
+                  <>
+                    <Link to="/login">
+                      <li>Login</li>
+                    </Link>
+                    <Link to="/signup">
+                      <li>Signup</li>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/profile">
+                      <li>Profile</li>
+                    </Link>
+
+                    <Link to="/requests">
+                      <li>Your Requests</li>
+                    </Link>
+
+                    <Link
+                      to="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        console.log("hi");
+                        authCxt.logout();
+                      }}
+                    >
+                      <li>Logout</li>
+                    </Link>
+                  </>
+                )}
+              </ul>
+            </nav>
+          )}
+
+          <div className="menu-2">
             {!authCxt.auth ? (
               <>
                 <Link className="btn btn-fill" to="/login">
@@ -132,7 +215,7 @@ const Layout = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/lookfor">Search</Link>
+                  <Link to="/search">Search</Link>
                 </li>
               </ul>
             </div>

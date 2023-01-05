@@ -17,7 +17,7 @@ const LookFor = () => {
   }, []);
 
   return (
-    <main className="container left-border-box">
+    <main className="container left-border-box section">
       <div className="main-box">
         <h2>Look For Blood</h2>
         <div className="filter-blood-type">

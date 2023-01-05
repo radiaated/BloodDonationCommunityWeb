@@ -58,7 +58,7 @@ const UserPage = () => {
   }, [userLoading]);
 
   return (
-    <main className="container left-border-box box-shadow">
+    <main className="container left-border-box box-shadow section">
       <form action="" onSubmit={handleSubmit} className=" sl-form flex">
         <h2>Your Information</h2>
         <label htmlFor="email">Email:</label>
