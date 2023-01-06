@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import logo from "./../assets/img/logo.png";
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Layout = () => {
       <header className="box-shadow">
         <div className="header-main flex container">
           <div className="header-logo">
-            <h1>Blood</h1>
+            <img src={logo} alt="logo" />
           </div>
 
           <nav className="menu-icon">
@@ -208,7 +209,7 @@ const Layout = () => {
         <div className="footer-desc">
           <div className="container flex">
             <div>
-              <h1>Blood Donation</h1>
+              <img src={logo} alt="logo" />
               <hr />
               <ul className="flex">
                 <li>
@@ -216,6 +217,9 @@ const Layout = () => {
                 </li>
                 <li>
                   <Link to="/search">Search</Link>
+                </li>
+                <li>
+                  <Link to="/about">About</Link>
                 </li>
               </ul>
             </div>
