@@ -32,9 +32,11 @@ const Layout = () => {
     <>
       <header className="box-shadow">
         <div className="header-main flex container">
-          <div className="header-logo">
-            <img src={logo} alt="logo" />
-          </div>
+          <Link to="/">
+            <div className="header-logo">
+              <img src={logo} alt="logo" />
+            </div>
+          </Link>
 
           <nav className="menu-icon">
             <div
@@ -42,7 +44,7 @@ const Layout = () => {
                 setShowMenu(!showMenu);
               }}
             >
-              <i class="fa-solid fa-bars"></i>
+              <i className="fa-solid fa-bars"></i>
             </div>
           </nav>
 
@@ -92,17 +94,32 @@ const Layout = () => {
                     setShowMenu(!showMenu);
                   }}
                 >
-                  <i class="fa-solid fa-bars"></i>
+                  <i className="fa-solid fa-bars"></i>
                 </div>
               </nav>
               <ul className="flex">
-                <Link to="/">
+                <Link
+                  to="/"
+                  onClick={() => {
+                    setShowMenu(false);
+                  }}
+                >
                   <li>Home</li>
                 </Link>
-                <Link to="/search">
+                <Link
+                  to="/search"
+                  onClick={() => {
+                    setShowMenu(false);
+                  }}
+                >
                   <li>Search For Blood</li>
                 </Link>
-                <Link to="/about">
+                <Link
+                  to="/about"
+                  onClick={() => {
+                    setShowMenu(false);
+                  }}
+                >
                   <li>About</li>
                 </Link>
 
@@ -110,20 +127,40 @@ const Layout = () => {
 
                 {!authCxt.auth ? (
                   <>
-                    <Link to="/login">
+                    <Link
+                      to="/login"
+                      onClick={() => {
+                        setShowMenu(false);
+                      }}
+                    >
                       <li>Login</li>
                     </Link>
-                    <Link to="/signup">
+                    <Link
+                      to="/signup"
+                      onClick={() => {
+                        setShowMenu(false);
+                      }}
+                    >
                       <li>Signup</li>
                     </Link>
                   </>
                 ) : (
                   <>
-                    <Link to="/profile">
+                    <Link
+                      to="/profile"
+                      onClick={() => {
+                        setShowMenu(false);
+                      }}
+                    >
                       <li>Profile</li>
                     </Link>
 
-                    <Link to="/requests">
+                    <Link
+                      to="/requests"
+                      onClick={() => {
+                        setShowMenu(false);
+                      }}
+                    >
                       <li>Your Requests</li>
                     </Link>
 
@@ -184,18 +221,16 @@ const Layout = () => {
                       </Link>
 
                       <hr />
-                      <li>
-                        <Link
-                          to="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            console.log("hi");
-                            authCxt.logout();
-                          }}
-                        >
-                          Logout
-                        </Link>
-                      </li>
+                      <Link
+                        to="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          console.log("hi");
+                          authCxt.logout();
+                        }}
+                      >
+                        <li>Logout</li>
+                      </Link>
                     </ul>
                   )}
                 </div>

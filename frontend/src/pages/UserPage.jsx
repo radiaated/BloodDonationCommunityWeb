@@ -17,7 +17,6 @@ const UserPage = () => {
   const [form, setForm] = useState({
     first_name: "",
     email: "",
-    password: "",
     blood_group: "",
     dob: "",
     district: "",
@@ -87,6 +86,7 @@ const UserPage = () => {
           <option value="b+">B+</option>
           <option value="b-">B-</option>
           <option value="o+">O+</option>
+          <option value="o+">O-</option>
           <option value="ab+">AB+</option>
           <option value="ab-">AB-</option>
         </select>

@@ -8,7 +8,7 @@ const HomeCover = () => {
       <div className="container flex">
         <p>Donate Blood, Save Lives</p>
         <h2>Donate Blood and inspire others</h2>
-        <Link to="/signup" className="btn btn-out">
+        <Link to="/search" className="btn btn-out">
           Get Started
         </Link>
       </div>

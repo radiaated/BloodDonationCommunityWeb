@@ -11,6 +11,17 @@ const LookFor = () => {
   const donorsState = useSelector((state) => state.donors);
   const { donorsLoading, donors, donorsMessage } = donorsState;
 
+  const getAge = (dateString) => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
   useEffect(() => {
     dispatch(fetchDonors("all"));
     console.log(donors);
@@ -35,7 +46,7 @@ const LookFor = () => {
             <option value="b+">B+</option>
             <option value="b-">B-</option>
             <option value="o+">O+</option>
-            <option value="o-">o-</option>
+            <option value="o-">O-</option>
             <option value="ab+">AB+</option>
             <option value="ab-">ab-</option>
           </select>
@@ -58,8 +69,8 @@ const LookFor = () => {
                   <tr key={i}>
                     <td>{i + 1}</td>
                     <td>{item.first_name}</td>
-                    <td>{item.dob}</td>
-                    <td>{item.blood_group}</td>
+                    <td>{getAge(item.dob)}</td>
+                    <td>{item.blood_group.toUpperCase()}</td>
                     <td>
                       <button
                         onClick={() => {

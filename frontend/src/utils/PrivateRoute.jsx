@@ -6,7 +6,7 @@ import { Navigate } from "react-router";
 const PrivateRoute = ({ children }) => {
   const cxtData = useContext(AuthContext);
 
-  return cxtData.auth ? children : <Navigate to="/signup" />;
+  return cxtData.auth ? children : <Navigate to="/" />;
 };
 
 export default PrivateRoute;

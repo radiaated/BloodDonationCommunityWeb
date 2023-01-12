@@ -39,7 +39,9 @@ const ViewUser = () => {
               </tr>
               <tr>
                 <th>Blood Type: </th>
-                <td>{viewUser.blood_group}</td>
+                <td>
+                  {viewUser.blood_group && viewUser.blood_group.toUpperCase()}
+                </td>
               </tr>
               <tr>
                 <th>Address: </th>
@@ -68,6 +70,7 @@ const ViewUser = () => {
           >
             Request
           </button>
+          {!AuthCxt.auth && "Login Required"}
         </div>
       ) : (
         "loading"

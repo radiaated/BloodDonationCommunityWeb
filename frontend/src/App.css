@@ -655,6 +655,9 @@ select {
 }
 
 @media only screen and (max-width: 690px) {
+  .header-logo img {
+    width: 85px;
+  }
   .qb {
     flex-direction: column;
   }
